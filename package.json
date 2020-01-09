@@ -11,8 +11,6 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "server": "json-server --watch src/mockdata/api.json --port 3001",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
@@ -22,7 +20,6 @@
     "test": "react-scripts test --env=jsdom"
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0",
     "node-sass": "^4.13.0",
     "react-icons": "^3.8.0",
     "react-router-dom": "^5.1.2"
