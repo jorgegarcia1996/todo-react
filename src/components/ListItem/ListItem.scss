@@ -1,0 +1,46 @@
+.ListItem {
+  padding: 10px;
+  border-bottom: 2px solid grey;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas: "t i";
+}
+
+.element-title {
+  grid-area: t;
+  margin: auto 0;
+}
+
+.element-icons {
+  grid-area: i;
+  font-size: 1.5rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.element-icons svg {
+  filter: drop-shadow(2px 2px 2px black);
+}
+
+.element-icons svg:active{
+  filter: none;
+}
+
+.element-icons a {
+  margin: 3vw;
+}
+
+a.edit-icon {
+  color: goldenrod;
+  :active{
+    color: rgb(133, 97, 8);
+  }
+}
+
+a.delete-icon {
+  color: red;
+  :active{
+    color: rgb(151, 0, 0);
+  }
+}

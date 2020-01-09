@@ -1,0 +1,23 @@
+.AddButton {
+  display: inline;
+}
+
+.add-icon {
+  text-align: center;
+  font-size: 2rem;
+  grid-area: a;
+  color: rgb(0, 216, 0);
+  svg {
+    filter: drop-shadow(2px 2px 2px black);
+  }
+  :active {
+    color: rgb(0, 102, 0);
+  }
+  :visited {
+    color: rgb(0, 216, 0);
+  }
+}
+
+.add-icon svg:active {
+  filter: none;
+}

@@ -1,0 +1,1 @@
+.Header{margin:0;background-color:#bbb;display:grid;grid-template-columns:1fr 2fr 1fr;grid-template-areas:". t b"}.title{text-align:center;grid-area:t}.button{grid-area:b;text-align:center}
