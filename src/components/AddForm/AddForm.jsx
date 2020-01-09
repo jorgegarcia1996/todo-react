@@ -21,7 +21,7 @@ class AddForm extends React.Component {
   };
 
   handleSubmit = () => {
-    axios.post("http://localhost:3001/tasks", this.state);
+    axios.post("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks", this.state);
     this.reload = true;
     this.forceUpdate();
   };

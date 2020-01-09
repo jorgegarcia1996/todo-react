@@ -13,14 +13,14 @@ class List extends React.Component {
   }
   
   getData = () => {
-    axios.get("http://localhost:3001/tasks").then(res => {
+    axios.get("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks").then(res => {
       const tasks = res.data;
       this.setState({ tasks });
     });
   }
   
   static getDerivedStateFromProps(props, state) {
-    axios.get("http://localhost:3001/tasks").then(res => {
+    axios.get("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks").then(res => {
       const tasks = res.data;
       state = { tasks };
     });

@@ -20,7 +20,7 @@ class ListItem extends React.Component {
           label: "Yes",
           onClick: () =>
             axios
-              .delete(`http://localhost:3001/tasks/${this.props.id}`)
+              .delete(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.props.id}`)
               .then(() => window.location.reload(true))
         },
         {
@@ -31,7 +31,7 @@ class ListItem extends React.Component {
   };
 
   showDetails = () => {
-    axios.get(`http://localhost:3001/tasks/${this.props.id}`).then(
+    axios.get(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.props.id}`).then(
       res => this.setState({
         title: res.data.title,
         description: res.data.description
