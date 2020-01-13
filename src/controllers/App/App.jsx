@@ -8,10 +8,10 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={List}/>
-          <Route path="/new" component={Add} />
-          <Route path="/edit/:id" component={Edit} />
-          <Route path="*" component={NotFound} />
+          <Route exact path="/todo-react" component={List}/>
+          <Route path="/todo-react/new" component={Add} />
+          <Route path="/todo-react/edit/:id" component={Edit} />
+          <Route path="/todo-react/*" component={NotFound} />
         </Switch>
         </BrowserRouter>
       </div>
