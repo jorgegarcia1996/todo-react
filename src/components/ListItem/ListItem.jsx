@@ -54,7 +54,7 @@ class ListItem extends React.Component {
       <div className="ListItem">
         <h3 className="element-title" onClick={this.showDetails}>{this.props.title}</h3>
         <span className="element-icons">
-          <Link className="edit-icon" to={`/edit/${this.props.id}`}>
+          <Link className="edit-icon" to={`/todo-react/edit/${this.props.id}`}>
             <FaEdit />
           </Link>
           <a onClick={this.deleteTask} className="delete-icon">

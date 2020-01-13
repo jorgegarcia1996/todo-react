@@ -28,7 +28,7 @@ class AddForm extends React.Component {
 
   render() {
     if (this.reload) {
-      return <Redirect to="/" />;
+      return <Redirect to="/todo-react" />;
     } else {
       return (
         <div className={this.props.className}>

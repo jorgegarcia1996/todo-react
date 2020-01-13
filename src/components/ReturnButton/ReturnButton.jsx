@@ -8,7 +8,7 @@ class ReturnButton extends React.Component {
     return(
       <div className="ReturnButton">
         <span className="return-icon">
-          <Link to="/">
+          <Link to="/todo-react">
             <IoIosArrowRoundBack />
           </Link>
         </span>

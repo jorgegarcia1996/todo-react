@@ -8,7 +8,7 @@ class AddButton extends React.Component {
     return (
       <div className="AddButton">
         <span className="add-icon">
-          <Link to="/new">
+          <Link to="/todo-react/new">
             <IoIosAddCircle />
           </Link>
         </span>
