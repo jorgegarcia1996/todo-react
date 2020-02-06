@@ -8,7 +8,7 @@ class NotFound extends React.Component {
       <div className="NotFound">
         <h1 className="message">404 Page Not Found</h1>
         <h3>
-          <Link to="/">Return to home page</Link>
+          <Link to="/todo-list-react">Return to home page</Link>
         </h3>
       </div>
     );
