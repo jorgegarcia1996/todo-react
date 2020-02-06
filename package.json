@@ -1,7 +1,7 @@
 {
   "homepage": "https://jorgegarcia1996.github.io/todo-react",
   "name": "react-todo-list",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
