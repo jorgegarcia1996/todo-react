@@ -5,23 +5,23 @@ import axios from "axios";
 
 class List extends React.Component {
   state = {
-    tasks: []
+    tasks: {}
   };
 
   componentDidMount() {
     this.getData();
   }
   
-  getData = () => {
-    axios.get("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks").then(res => {
-      const tasks = res.data;
+  getData = async () => {
+    await axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks").then(res => {
+      const tasks = res.data.Items;
       this.setState({ tasks });
     });
   }
   
-  static getDerivedStateFromProps(props, state) {
-    axios.get("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks").then(res => {
-      const tasks = res.data;
+  static async getDerivedStateFromProps(props, state) {
+    await axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks").then(res => {
+      const tasks = res.data.Items;
       state = { tasks };
     });
     return null;
@@ -33,7 +33,7 @@ class List extends React.Component {
         <Header headerText="React TODO List" button="add" />
         {this.state.tasks.length > 0 ? (
           this.state.tasks.map(t => ( 
-            <ListItem  key={t.id} id={t.id} title={t.title} />
+            <ListItem  key={t.id.N} task={t} />
           ))
         ) : (
           <h1 className="center">You no have tasks</h1>

@@ -8,20 +8,25 @@ import { Link } from "react-router-dom";
 
 class ListItem extends React.Component {
   state = {
-    title: "",
-    description: "",
+    task: this.props.task
   }
-  deleteTask = () => {
+
+
+
+  deleteTask = async () => {
     confirmAlert({
       title: "Delete task",
-      message: `Do you really want to delete '${this.props.title}' task?`,
+      message: `Do you really want to delete '${this.state.task.title.S}' task?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () =>
-            axios
-              .delete(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.props.id}`)
-              .then(() => window.location.reload(true))
+          onClick: () => {
+            axios.get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/deleteTask?id=${this.state.task.id.N}`)
+                  .then(() => {
+                    window.location.reload();
+                  });
+                  
+          }
         },
         {
           label: "No"
@@ -31,30 +36,23 @@ class ListItem extends React.Component {
   };
 
   showDetails = () => {
-    axios.get(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.props.id}`).then(
-      res => this.setState({
-        title: res.data.title,
-        description: res.data.description
-      }, () => 
-      confirmAlert({
-        title: this.state.title,
-        message: this.state.description,
+   confirmAlert({
+        title: this.state.task.title.S,
+        message: this.state.task.description.S,
         buttons: [
           {
             label: "Close"
           }
         ]
       })
-      )
-    )
   }
 
   render() {
     return (
       <div className="ListItem">
-        <h3 className="element-title" onClick={this.showDetails}>{this.props.title}</h3>
+        <h3 className="element-title" onClick={this.showDetails}>{this.state.task.title.S}</h3>
         <span className="element-icons">
-          <Link className="edit-icon" to={`/todo-react/edit/${this.props.id}`}>
+          <Link className="edit-icon" to={`/todo-react/edit/${this.state.task.id.N}`}>
             <FaEdit />
           </Link>
           <a onClick={this.deleteTask} className="delete-icon">

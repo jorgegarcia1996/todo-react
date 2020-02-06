@@ -22,17 +22,17 @@ class EditForm extends React.Component {
 
   handleSubmit = () => {
     axios
-      .put(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.state.id}`, this.state)
-      .then( () => axios.get("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks"));
+      .get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/addTask?id=${this.state.id}&title=${this.state.title}&desc=${this.state.description}`)
+      .then( () => axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks"));
       this.reload = true;
       this.forceUpdate();
   };
 
   componentDidMount() {
-    axios.get(`https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks/${this.state.id}`).then(res => {
+    axios.get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTaskById?id=${this.state.id}`).then(res => {
       this.setState({
-        title: res.data.title,
-        description: res.data.description
+        title: res.data.Item.title.S,
+        description: res.data.Item.description.S
       });
     });
   }

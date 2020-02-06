@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 
 class AddForm extends React.Component {
   state = {
-    id: "",
     title: "",
     description: ""
   };
@@ -21,7 +20,10 @@ class AddForm extends React.Component {
   };
 
   handleSubmit = () => {
-    axios.post("https://my-json-server.typicode.com/jorgegarcia1996/todo-react/tasks", this.state);
+    axios
+      .get(
+        `https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/addTask?id=${Date.now()}&title=${this.state.title}&desc=${this.state.description}`)
+      .then(() => axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks"));
     this.reload = true;
     this.forceUpdate();
   };
