@@ -1,7 +1,8 @@
 import React from "react";
 import "./AddForm.css";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { addTask } from '../../redux/action/AddTask'
 
 class AddForm extends React.Component {
   state = {
@@ -20,10 +21,14 @@ class AddForm extends React.Component {
   };
 
   handleSubmit = () => {
-    axios
-      .get(
-        `https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/addTask?id=${Date.now()}&title=${this.state.title}&desc=${this.state.description}`)
-      .then(() => axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks"));
+    const {id} = this.props;
+    const {title, description} = this.state;
+    const taskToSave = {
+      id,
+      title,
+      description
+    }
+    this.props.addTask(taskToSave)
     this.reload = true;
     this.forceUpdate();
   };
@@ -47,4 +52,14 @@ class AddForm extends React.Component {
   }
 }
 
-export default AddForm;
+function mapState(state) {
+  return {
+    id: state.getTasksReducer.nextId
+  }
+}
+
+const mapDispatch = {
+  addTask
+}
+
+export default connect(mapState, mapDispatch)(AddForm);

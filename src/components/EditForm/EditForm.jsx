@@ -1,7 +1,8 @@
 import React from "react";
 import "./EditForm.css";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { addTask } from "../../redux/action/AddTask";
 
 class EditForm extends React.Component {
   state = {
@@ -11,6 +12,7 @@ class EditForm extends React.Component {
   };
 
   reload = false;
+  taskNotFound = false;
 
   titleChange = event => {
     this.setState({ title: event.target.value });
@@ -21,39 +23,51 @@ class EditForm extends React.Component {
   };
 
   handleSubmit = () => {
-    axios
-      .get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/addTask?id=${this.state.id}&title=${this.state.title}&desc=${this.state.description}`)
-      .then( () => axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks"));
-      this.reload = true;
-      this.forceUpdate();
+    const { id } = this.props;
+    const { title, description } = this.state;
+    const taskToSave = {
+      id,
+      title,
+      description
+    };
+    this.props.addTask(taskToSave);
+    this.reload = true;
+    this.forceUpdate();
   };
 
   componentDidMount() {
-    axios.get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTaskById?id=${this.state.id}`).then(res => {
+    if (!!this.props.task) {
+      const { title, description } = this.props.task;
       this.setState({
-        title: res.data.Item.title.S,
-        description: res.data.Item.description.S
+        title: title.S,
+        description: description.S
       });
-    });
+    } else {
+      this.taskNotFound = true;
+      this.forceUpdate();
+    }
   }
 
   render() {
+    const { title, description } = this.state;
     if (this.reload) {
-      return <Redirect to="/todo-react"/>;
+      return <Redirect to="/todo-react" />;
+    } else if (this.taskNotFound) {
+      return <Redirect to="/todo-react/task-not-found" />;
     } else {
       return (
         <div className={this.props.className}>
           <form onSubmit={this.handleSubmit}>
             <label>Title</label>
             <input
-              value={this.state.title}
+              value={title}
               type="text"
               onChange={this.titleChange}
               required
             />
             <label>Description</label>
             <textarea
-              value={this.state.description}
+              value={description}
               onChange={this.descriptionChange}
               required
             />
@@ -65,4 +79,16 @@ class EditForm extends React.Component {
   }
 }
 
-export default EditForm;
+function mapState(state, ownProps) {
+  const { id } = ownProps;
+  return {
+    task: state.getTasksReducer.tasks[id]
+  };
+}
+
+//Update task with the same action to create task
+const mapDispatch = {
+  addTask
+};
+
+export default connect(mapState, mapDispatch)(EditForm);

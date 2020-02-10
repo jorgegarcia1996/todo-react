@@ -1,32 +1,25 @@
 import React from "react";
 import "./ListItem.css";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
+import { deleteTask } from '../../redux/action/DeleteTasks'
+import { connect } from "react-redux";
 
 class ListItem extends React.Component {
-  state = {
-    task: this.props.task
-  }
-
-
 
   deleteTask = async () => {
     confirmAlert({
       title: "Delete task",
-      message: `Do you really want to delete '${this.state.task.title.S}' task?`,
+      message: `Do you really want to delete '${this.props.task.title.S}' task?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => {
-            axios.get(`https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/deleteTask?id=${this.state.task.id.N}`)
-                  .then(() => {
-                    window.location.reload();
-                  });
-                  
-          }
+           onClick: () => {
+            this.props.deleteTask(this.props.task.id.N);
+            window.location.reload();
+           }
         },
         {
           label: "No"
@@ -37,8 +30,8 @@ class ListItem extends React.Component {
 
   showDetails = () => {
    confirmAlert({
-        title: this.state.task.title.S,
-        message: this.state.task.description.S,
+        title: this.props.task.title.S,
+        message: this.props.task.description.S,
         buttons: [
           {
             label: "Close"
@@ -50,10 +43,10 @@ class ListItem extends React.Component {
   render() {
     return (
       <div className="ListItem">
-        <h3 className="element-title" onClick={this.showDetails}>{this.state.task.title.S}</h3>
+        <h3 className="element-title" onClick={this.showDetails}>{this.props.task.title.S}</h3>
         <span className="element-icons">
-          <Link className="edit-icon" to={`/todo-react/edit/${this.state.task.id.N}`}>
-            <FaEdit />
+          <Link className="edit-icon" to={`/todo-react/edit/${this.props.task.id.N}`}>
+            <FaEdit/>
           </Link>
           <a onClick={this.deleteTask} className="delete-icon">
             <FaTrashAlt />
@@ -64,4 +57,14 @@ class ListItem extends React.Component {
   }
 }
 
-export default ListItem;
+function mapState(state, ownProps) {
+  return {
+    task: state.getTasksReducer.tasks[ownProps.id]
+  }
+}
+
+const mapDispatch = {
+  deleteTask
+}
+
+export default connect(mapState, mapDispatch)(ListItem);

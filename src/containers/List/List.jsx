@@ -1,39 +1,24 @@
 import React from "react";
 import "./List.css";
 import { ListItem, Header } from "../../components";
-import axios from "axios";
+import { getAllTasks } from '../../redux/action/GetAllTasks'
+import { connect } from "react-redux";
 
 class List extends React.Component {
-  state = {
-    tasks: {}
-  };
 
   componentDidMount() {
-    this.getData();
-  }
-  
-  getData = async () => {
-    await axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks").then(res => {
-      const tasks = res.data.Items;
-      this.setState({ tasks });
-    });
-  }
-  
-  static async getDerivedStateFromProps(props, state) {
-    await axios.get("https://rrbg7o8yy0.execute-api.us-east-1.amazonaws.com/add/getTasks").then(res => {
-      const tasks = res.data.Items;
-      state = { tasks };
-    });
-    return null;
+    this.props.getAllTasks();
   }
 
   render() {
+    //this.props.getAllTasks();
+    const { tasks } = this.props;
     return (
       <div className="List">
         <Header headerText="React TODO List" button="add" />
-        {this.state.tasks.length > 0 ? (
-          this.state.tasks.map(t => ( 
-            <ListItem  key={t.id.N} task={t} />
+        {tasks.length > 0 ? (
+          tasks.map(t => ( 
+            <ListItem  key={t.id.N} id={t.id.N} />
           ))
         ) : (
           <h1 className="center">You no have tasks</h1>
@@ -43,4 +28,14 @@ class List extends React.Component {
   }
 }
 
-export default List;
+function mapState(state) {
+  return {
+    tasks: state.getTasksReducer.tasks
+  }
+}
+
+const mapDispatch = {
+  getAllTasks
+}
+
+export default connect(mapState, mapDispatch)(List);

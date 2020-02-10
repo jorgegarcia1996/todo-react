@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Add, NotFound, Edit } from '../../containers';
+import { List, Add, NotFound, Edit, TaskNotFound } from '../../containers';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
@@ -11,6 +11,7 @@ class App extends React.Component {
           <Route exact path="/todo-react" component={List}/>
           <Route path="/todo-react/new" component={Add} />
           <Route path="/todo-react/edit/:id" component={Edit} />
+          <Route path="/todo-react/task-not-found" component={TaskNotFound} />
           <Route path="/todo-react/*" component={NotFound} />
         </Switch>
         </BrowserRouter>
