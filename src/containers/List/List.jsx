@@ -16,13 +16,15 @@ TopBarProgress.config({
 
 class List extends React.Component {
   componentDidMount() {
-    this.props.getAllTasks();
+    if (!this.props.firstLoad) {
+      this.props.getAllTasks();
+    }
   }
-  
+
   loadContent = () => {
     const { tasks, loading } = this.props;
     if (loading) {
-      return <TopBarProgress/>
+      return <TopBarProgress />;
     } else {
       if (tasks.length > 0) {
         return tasks.map(t => <ListItem key={t.id.N} id={t.id.N} />);
@@ -31,7 +33,7 @@ class List extends React.Component {
       }
     }
   };
-  
+
   render() {
     return (
       <div className="List">
@@ -45,7 +47,8 @@ class List extends React.Component {
 function mapState(state) {
   return {
     tasks: state.getTasksReducer.tasks,
-    loading: state.getTasksReducer.loading
+    loading: state.getTasksReducer.loading,
+    firstLoad: state.getTasksReducer.firstLoad
   };
 }
 

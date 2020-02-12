@@ -3,7 +3,8 @@ import { GET_ALL_TASKS, LOADING } from "../action/ActionConstants";
 const initialState = {
   tasks: [],
   nextId: 0,
-  loading: false
+  loading: false,
+  firstLoad: false
 }
 
 export default function getTasksReducer(state = initialState, action) {
@@ -28,7 +29,8 @@ export default function getTasksReducer(state = initialState, action) {
       return {
         ...state,
         tasks: copy,
-        nextId: freeId
+        nextId: freeId,
+        firstLoad: true
       }
 
       case LOADING: 

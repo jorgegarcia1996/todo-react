@@ -18,7 +18,7 @@ class AddForm extends React.Component {
     this.setState({ description: event.target.value });
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { id } = this.props;
     const { title, description } = this.state;
     const taskToSave = {
