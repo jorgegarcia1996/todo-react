@@ -1,10 +1,11 @@
 .ReturnButton {
-  display: inline;
+  display: block;
+  margin-top: 2vh;
 }
 
 .return-icon {
   text-align: center;
-  font-size: 2rem;
+  font-size: 3rem;
   grid-area: a;
   color: rgb(0, 0, 0);
   svg {

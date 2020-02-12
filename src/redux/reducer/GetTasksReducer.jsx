@@ -1,8 +1,9 @@
-import { GET_ALL_TASKS } from "../action/ActionConstants";
+import { GET_ALL_TASKS, LOADING } from "../action/ActionConstants";
 
 const initialState = {
   tasks: [],
-  nextId: 0
+  nextId: 0,
+  loading: false
 }
 
 export default function getTasksReducer(state = initialState, action) {
@@ -28,6 +29,12 @@ export default function getTasksReducer(state = initialState, action) {
         ...state,
         tasks: copy,
         nextId: freeId
+      }
+
+      case LOADING: 
+      return {
+        ...state,
+        loading: action.payload.loading
       }
       default:
         return state;

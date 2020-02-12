@@ -1,8 +1,8 @@
 import React from "react";
 import "./EditForm.css";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { addTask } from "../../redux/action/AddTask";
+import { withRouter } from "react-router-dom";
 
 class EditForm extends React.Component {
   state = {
@@ -10,9 +10,6 @@ class EditForm extends React.Component {
     title: "",
     description: ""
   };
-
-  reload = false;
-  taskNotFound = false;
 
   titleChange = event => {
     this.setState({ title: event.target.value });
@@ -31,8 +28,7 @@ class EditForm extends React.Component {
       description
     };
     this.props.addTask(taskToSave);
-    this.reload = true;
-    this.forceUpdate();
+    this.props.history.push("/todo-react");
   };
 
   componentDidMount() {
@@ -43,39 +39,32 @@ class EditForm extends React.Component {
         description: description.S
       });
     } else {
-      this.taskNotFound = true;
-      this.forceUpdate();
+      this.props.history.push("/todo-react");
     }
   }
 
   render() {
     const { title, description } = this.state;
-    if (this.reload) {
-      return <Redirect to="/todo-react" />;
-    } else if (this.taskNotFound) {
-      return <Redirect to="/todo-react/task-not-found" />;
-    } else {
-      return (
-        <div className={this.props.className}>
-          <form onSubmit={this.handleSubmit}>
-            <label>Title</label>
-            <input
-              value={title}
-              type="text"
-              onChange={this.titleChange}
-              required
-            />
-            <label>Description</label>
-            <textarea
-              value={description}
-              onChange={this.descriptionChange}
-              required
-            />
-            <input type="submit" value="Save changes" />
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div className={this.props.className}>
+        <form onSubmit={this.handleSubmit}>
+          <label>Title</label>
+          <input
+            value={title}
+            type="text"
+            onChange={this.titleChange}
+            required
+          />
+          <label>Description</label>
+          <textarea
+            value={description}
+            onChange={this.descriptionChange}
+            required
+          />
+          <input type="submit" value="Save changes" />
+        </form>
+      </div>
+    );
   }
 }
 
@@ -91,4 +80,4 @@ const mapDispatch = {
   addTask
 };
 
-export default connect(mapState, mapDispatch)(EditForm);
+export default withRouter(connect(mapState, mapDispatch)(EditForm));

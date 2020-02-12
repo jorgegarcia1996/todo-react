@@ -1,1 +1,1 @@
-.ReturnButton{display:inline}.return-icon{text-align:center;font-size:2rem;grid-area:a;color:#000}.return-icon svg{filter:drop-shadow(2px 2px 2px black)}.return-icon :active{color:#fff}.return-icon :visited{color:#000}.add-icon svg:active{filter:none}
+.ReturnButton{display:block;margin-top:2vh}.return-icon{text-align:center;font-size:3rem;grid-area:a;color:#000}.return-icon svg{filter:drop-shadow(2px 2px 2px black)}.return-icon :active{color:#fff}.return-icon :visited{color:#000}.add-icon svg:active{filter:none}

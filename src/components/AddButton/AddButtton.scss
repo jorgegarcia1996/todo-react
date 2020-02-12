@@ -1,11 +1,10 @@
 .AddButton {
-  display: inline;
+  display: block;
+  margin-top: 2vh;
 }
 
 .add-icon {
-  text-align: center;
-  font-size: 2rem;
-  grid-area: a;
+  font-size: 3rem;
   color: rgb(0, 216, 0);
   svg {
     filter: drop-shadow(2px 2px 2px black);
