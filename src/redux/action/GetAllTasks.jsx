@@ -13,7 +13,7 @@ export const loadingTasksAction = loading => ({
 
 export function getAllTasks() {
   return dispatch => {
-    let path = process.env.BASE_URL + GET_TASKS_ENDPOINT;
+    let path = process.env.REACT_APP_API_BASE_URL + GET_TASKS_ENDPOINT;
     dispatch(loadingTasksAction(true));
     return Axios.get(path).then(res => {
       dispatch(getAllTasksAction(res.data.Items));
